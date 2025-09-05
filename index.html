@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Habits - Goals & Systems</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="atomic-icon">⚛️</span>
+                    <h1>Atomic Habits</h1>
+                </div>
+                <div class="nav-links">
+                    <button class="nav-btn active" data-view="dashboard">
+                        <span class="nav-icon">🏠</span>
+                        Dashboard
+                    </button>
+                    <button class="nav-btn" data-view="goals">
+                        <span class="nav-icon">🎯</span>
+                        Ziele
+                    </button>
+                    <button class="nav-btn" data-view="habits">
+                        <span class="nav-icon">✅</span>
+                        Gewohnheiten
+                    </button>
+                    <button class="nav-btn" data-view="identity">
+                        <span class="nav-icon">👤</span>
+                        Identität
+                    </button>
+                    <button class="nav-btn" data-view="analytics">
+                        <span class="nav-icon">📊</span>
+                        Statistiken
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboard" class="view active">
+                <div class="dashboard-header">
+                    <div class="welcome-card glass-card">
+                        <div class="user-info">
+                            <div class="avatar">👤</div>
+                            <div class="user-details">
+                                <h2>Willkommen zurück, <span class="user-name">Alex</span>!</h2>
+                                <p class="user-level">Level <span id="user-level">7</span> • <span id="current-streak">8</span> Tage Streak 🔥</p>
+                                <div class="identity-score">
+                                    <span class="identity-label">Identity Score:</span>
+                                    <span id="identity-score">76</span>%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xp-progress">
+                            <div class="xp-bar-container">
+                                <div class="xp-bar" style="width: 35%"></div>
+                            </div>
+                            <div class="xp-text">
+                                <span id="current-xp">350</span> / <span id="xp-to-next">1000</span> XP
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <h3 id="total-goals">4</h3>
+                            <p>Aktive Ziele</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-info">
+                            <h3 id="completed-today">4</h3>
+                            <p>Heute erledigt</p>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <h3 id="total-xp">6350</h3>
+                            <p>Gesamt XP</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goals Overview -->
+                <div class="goals-overview">
+                    <div class="section-header">
+                        <h3>Meine Ziele</h3>
+                        <button class="btn btn--primary" id="add-goal-btn">
+                            <span class="btn-icon">+</span>
+                            Neues Ziel
+                        </button>
+                    </div>
+                    <div id="goals-grid" class="goals-container">
+                        <!-- Goals will be dynamically generated -->
+                    </div>
+                </div>
+
+                <!-- Today's Habits grouped by Goals -->
+                <div class="todays-habits">
+                    <h3>Heutige Gewohnheiten</h3>
+                    <div id="grouped-habits-list" class="grouped-habits-container">
+                        <!-- Habits grouped by goals will be generated -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goals View -->
+            <div id="goals" class="view">
+                <div class="goals-header">
+                    <h2>Ziele & Systeme</h2>
+                    <button class="btn btn--primary" id="add-goal-btn-alt">
+                        <span class="btn-icon">+</span>
+                        Neues Ziel
+                    </button>
+                </div>
+                <div id="all-goals-list" class="goals-container">
+                    <!-- All goals will be listed here -->
+                </div>
+            </div>
+
+            <!-- Habits Management View -->
+            <div id="habits" class="view">
+                <div class="habits-header">
+                    <h2>Alle Gewohnheiten</h2>
+                    <button class="btn btn--primary" id="add-habit-btn">
+                        <span class="btn-icon">+</span>
+                        Neue Gewohnheit
+                    </button>
+                </div>
+                <div id="all-habits-list" class="habits-container">
+                    <!-- All habits will be listed here -->
+                </div>
+            </div>
+
+            <!-- Identity View -->
+            <div id="identity" class="view">
+                <div class="identity-header">
+                    <h2>Identitäts-Tracker</h2>
+                    <div class="identity-score-large">
+                        <span class="score-number" id="identity-score-large">76</span>
+                        <span class="score-label">Identity Score</span>
+                    </div>
+                </div>
+                
+                <div class="identity-insights">
+                    <h3>Wer bin ich geworden?</h3>
+                    <div id="identity-insights-list" class="insights-container">
+                        <!-- Identity insights will be generated -->
+                    </div>
+                </div>
+
+                <div class="identity-progress">
+                    <h3>Identitäts-Fortschritt</h3>
+                    <div id="identity-progress-chart" class="chart-container" style="position: relative; height: 300px;">
+                        <canvas id="identity-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics View -->
+            <div id="analytics" class="view">
+                <h2>Fortschritts-Statistiken</h2>
+                <div class="analytics-grid">
+                    <div class="chart-card glass-card">
+                        <h3>Ziel-Fortschritt (Woche)</h3>
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="goal-progress-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card glass-card">
+                        <h3>XP Entwicklung</h3>
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="xp-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Goal Creation Modal -->
+        <div id="goal-modal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glass-card">
+                <div class="modal-header">
+                    <h3>Neues Ziel erstellen</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="goal-form">
+                        <div class="goal-wizard">
+                            <!-- Step 1: Identity -->
+                            <div class="wizard-step active" data-step="1">
+                                <h4>💡 Schritt 1: Wer möchtest du werden?</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Identity Statement</label>
+                                    <input type="text" id="goal-identity" class="form-control" placeholder="Ich bin jemand, der..." required>
+                                    <div class="identity-examples">
+                                        <small>Beispiele: "...kontinuierlich lernt", "...seinen Körper respektiert", "...achtsam lebt"</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Goal Details -->
+                            <div class="wizard-step" data-step="2">
+                                <h4>🎯 Schritt 2: Ziel-Details</h4>
+                                <div class="form-group">
+                                    <label class="form-label">Ziel-Titel</label>
+                                    <input type="text" id="goal-title" class="form-control" placeholder="z.B. Körperliche Gesundheit" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Beschreibung</label>
+                                    <textarea id="goal-description" class="form-control" placeholder="Was möchtest du erreichen?" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Kategorie</label>
+                                    <select id="goal-category" class="form-control">
+                                        <option value="Gesundheit">Gesundheit</option>
+                                        <option value="Bildung">Bildung</option>
+                                        <option value="Wellness">Wellness</option>
+                                        <option value="Lifestyle">Lifestyle</option>
+                                        <option value="Produktivität">Produktivität</option>
+                                        <option value="Beziehungen">Beziehungen</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: System -->
+                            <div class="wizard-step" data-step="3">
+                                <h4>⚙️ Schritt 3: Das System</h4>
+                                <div class="systems-quote">
+                                    <p><em>"You do not rise to the level of your goals. You fall to the level of your systems."</em></p>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">System-Beschreibung</label>
+                                    <textarea id="goal-system" class="form-control" placeholder="Welche täglichen Prozesse führen zu diesem Ziel?" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Priorität</label>
+                                    <select id="goal-priority" class="form-control">
+                                        <option value="high">Hoch</option>
+                                        <option value="medium">Mittel</option>
+                                        <option value="low">Niedrig</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-navigation">
+                            <button type="button" class="btn btn--secondary" id="wizard-prev" style="display: none;">Zurück</button>
+                            <button type="button" class="btn btn--primary" id="wizard-next">Weiter</button>
+                            <button type="submit" class="btn btn--primary" id="wizard-submit" style="display: none;">Ziel erstellen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habit Modal -->
+        <div id="habit-modal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glass-card">
+                <div class="modal-header">
+                    <h3>Neue Gewohnheit erstellen</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="habit-form">
+                        <div class="form-group">
+                            <label class="form-label">Ziel zuordnen</label>
+                            <select id="habit-goal" class="form-control">
+                                <option value="">Wähle ein Ziel...</option>
+                                <!-- Goals will be populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Titel</label>
+                            <input type="text" id="habit-title" class="form-control" placeholder="z.B. Lesen" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Beschreibung</label>
+                            <textarea id="habit-description" class="form-control" placeholder="Kurze Beschreibung..." rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">XP-Wert</label>
+                            <select id="habit-xp" class="form-control">
+                                <option value="15">15 XP (Einfach)</option>
+                                <option value="25">25 XP (Mittel)</option>
+                                <option value="35">35 XP (Schwer)</option>
+                            </select>
+                        </div>
+                        <div class="two-minute-rule">
+                            <h4>💡 Zwei-Minuten-Regel</h4>
+                            <p class="rule-tip">Mache es so klein, dass du nicht nein sagen kannst</p>
+                            <div class="form-group">
+                                <label class="form-label">2-Minuten Version</label>
+                                <input type="text" id="habit-two-minute" class="form-control" placeholder="z.B. Öffne nur das Buch">
+                            </div>
+                        </div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn--secondary modal-close">Abbrechen</button>
+                            <button type="submit" class="btn btn--primary">Gewohnheit erstellen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goal Detail Modal -->
+        <div id="goal-detail-modal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glass-card goal-detail-content">
+                <div class="modal-header">
+                    <div class="goal-detail-header">
+                        <span id="goal-detail-icon" class="goal-icon">💪</span>
+                        <div>
+                            <h3 id="goal-detail-title">Körperliche Gesundheit</h3>
+                            <p id="goal-detail-identity" class="identity-statement">Ich bin jemand, der seinen Körper respektiert und pflegt</p>
+                        </div>
+                    </div>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="goal-detail-stats">
+                        <div class="detail-stat">
+                            <span class="stat-label">Fortschritt</span>
+                            <span id="goal-detail-progress" class="stat-value">78%</span>
+                        </div>
+                        <div class="detail-stat">
+                            <span class="stat-label">Streak</span>
+                            <span id="goal-detail-streak" class="stat-value">12 Tage</span>
+                        </div>
+                        <div class="detail-stat">
+                            <span class="stat-label">XP</span>
+                            <span id="goal-detail-xp" class="stat-value">890</span>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-system">
+                        <h4>Das System</h4>
+                        <p id="goal-detail-system">Tägliche Bewegung, bewusste Ernährung und ausreichend Erholung</p>
+                    </div>
+                    
+                    <div class="goal-habits">
+                        <h4>Zugehörige Gewohnheiten</h4>
+                        <div id="goal-detail-habits" class="goal-habits-list">
+                            <!-- Habits will be populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Notification -->
+        <div id="success-notification" class="notification hidden">
+            <div class="notification-content">
+                <span class="notification-icon">🎉</span>
+                <span class="notification-text"></span>
+                <span class="notification-xp"></span>
+            </div>
+        </div>
+
+        <!-- Identity Reinforcement Notification -->
+        <div id="identity-notification" class="notification identity-notification hidden">
+            <div class="notification-content">
+                <span class="notification-icon">🎭</span>
+                <div class="identity-feedback">
+                    <div class="feedback-title">Du handelst wie jemand, der...</div>
+                    <div class="feedback-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
